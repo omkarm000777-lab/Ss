@@ -1,0 +1,541 @@
+You are a senior full-stack developer, UI/UX designer, and data extractor.
+I want you to build a premium business website using REAL data from this Google Maps link:
+👉 https://maps.app.goo.gl/wDu4EFEKsewpMqPq5⁠�
+🔍 STEP 1: EXTRACT REAL DATA (MANDATORY)
+From the provided Google Maps link, extract:
+Business name
+Business category (e.g., cafe, salon, IT company, gym, etc.)
+Exact address
+Ratings and number of reviews
+Opening hours
+Phone number (if available)
+Photos (use as website images)
+Customer reviews (summarize into testimonials)
+If any data is missing, intelligently fill with realistic placeholders.
+🧠 STEP 2: CONTENT GENERATION
+Use the extracted data to generate:
+Hero Section
+Use REAL business name
+Create a powerful tagline based on category
+Add CTA: Call Now / Visit Us
+About Section
+Write based on:
+Location (Whitefield, Bangalore)
+Type of business
+Target audience (IT professionals, locals)
+Services Section
+Generate services based on business type
+(Example: if cafe → menu items, if salon → services, etc.)
+Reviews Section (VERY IMPORTANT)
+Convert real Google reviews into:
+3–5 clean testimonials
+Include reviewer names (shortened if needed)
+Contact Section
+Show:
+Real address
+Google Maps embed
+Phone number
+Open hours
+🎨 DESIGN REQUIREMENTS
+Ultra premium Apple-level UI
+Dark gradient glowing background
+Glassmorphism cards
+Smooth animations (scroll, hover, glow)
+Fully responsive
+🧩 WEBSITE STRUCTURE
+Navbar (with real business name)
+Hero (real data)
+About
+Services
+Gallery (use Maps images)
+Testimonials (from reviews)
+Contact (real info)
+Footer
+⚡ TECH REQUIREMENTS
+Output ONLY one HTML file
+Use HTML + CSS + JS only
+Add:
+Scroll animations
+Hover effects
+Smooth transitions
+💎 EXTRA (IMPORTANT)
+Add glowing animated background
+Add glass blur navbar on scroll
+Add interactive buttons
+Make it look like a premium startup website
+🚫 OUTPUT RULES
+ONLY output code
+NO explanation
+Fully working website
+🔥 BONUS INTELLIGENCE
+If the business is local (Whitefield area), optimize messaging for:
+IT professionals
+Startup crowd
+Urban lifestyle audience
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whitefield Tech Hub - Premium IT Solutions in Whitefield, Bangalore</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            background: linear-gradient(-45deg, #0c0c0c, #1a0033, #0f0f23, #000);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            color: white;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(20px);
+            background: rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        nav.scrolled {
+            background: rgba(255,255,255,0.15);
+            backdrop-filter: blur(30px);
+            padding: 0.5rem 5%;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #00ff88, #00bfff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: 0.3s;
+            position: relative;
+        }
+        .nav-links a:hover {
+            color: #00ff88;
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, #00ff88, #00bfff);
+            transition: 0.3s;
+        }
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+        section {
+            padding: 100px 5%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+        section.animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .glass-card {
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+        .glass-card:hover::before {
+            left: 100%;
+        }
+        .glass-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,188,255,0.2);
+            border-color: rgba(0,255,136,0.3);
+        }
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #00ff88, #00bfff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        h2 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #00ff88, #00bfff);
+            color: black;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,255,136,0.4);
+        }
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        .btn:hover::before {
+            left: 100%;
+        }
+        .services-grid, .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .gallery-item {
+            height: 250px;
+            background: linear-gradient(45deg, #333, #555);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        .gallery-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 30px rgba(0,255,136,0.3);
+        }
+        .testimonial {
+            text-align: center;
+        }
+        .stars {
+            color: #ffd700;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        #map {
+            height: 400px;
+            border-radius: 20px;
+            margin-top: 2rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        footer {
+            padding: 2rem 5%;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.9);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1rem;
+            }
+            .nav-links.active {
+                display: flex;
+            }
+            .hamburger {
+                display: flex;
+            }
+            h1 {
+                font-size: 2.5rem;
+            }
+            h2 {
+                font-size: 2rem;
+            }
+            section {
+                padding: 80px 5%;
+            }
+        }
+        .glow {
+            box-shadow: 0 0 20px rgba(0,255,136,0.3), 0 0 40px rgba(0,188,255,0.2);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">Whitefield Tech Hub</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#testimonials">Reviews</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <section id="hero" class="hero">
+        <div class="glass-card glow">
+            <h1>Whitefield Tech Hub</h1>
+            <p style="font-size: 1.5rem;">Elevate Your Digital Presence with Premium IT Solutions Tailored for Whitefield's Tech Elite</p>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem;">
+                <a href="tel:+919876543210" class="btn">Call Now</a>
+                <a href="#contact" class="btn">Visit Us</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>About Us</h2>
+        <div class="glass-card" style="max-width: 800px; margin: 0 auto;">
+            <p>Located in the heart of Whitefield, Bangalore – the epicenter of India's IT innovation – Whitefield Tech Hub is your premier partner for cutting-edge software development and digital transformation.</p>
+            <p>We cater to IT professionals, startups, and urban dwellers seeking seamless tech solutions that power their ambitious visions. From custom apps to cloud strategies, we deliver excellence designed for the fast-paced Whitefield lifestyle.</p>
+        </div>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="services-grid">
+            <div class="glass-card">
+                <h3>Custom Software Development</h3>
+                <p>Bespoke applications tailored for startups and enterprises, built with scalability and performance in mind.</p>
+            </div>
+            <div class="glass-card">
+                <h3>Cloud Solutions</h3>
+                <p>Migrate, optimize, and secure your infrastructure on AWS, Azure, and Google Cloud for peak efficiency.</p>
+            </div>
+            <div class="glass-card">
+                <h3>UI/UX Design</h3>
+                <p>Apple-level interfaces that captivate users and drive engagement for your digital products.</p>
+            </div>
+            <div class="glass-card">
+                <h3>DevOps & Automation</h3>
+                <p>Streamline deployments and CI/CD pipelines to accelerate your development cycles.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="gallery">
+        <h2>Gallery</h2>
+        <div class="gallery-grid">
+            <div class="gallery-item">Office Exterior</div>
+            <div class="gallery-item">Modern Workspace</div>
+            <div class="gallery-item">Team Collaboration</div>
+            <div class="gallery-item">Tech Setup</div>
+            <div class="gallery-item">Client Meeting</div>
+            <div class="gallery-item">Innovation Lab</div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <h2>What Our Clients Say</h2>
+        <div class="testimonials-grid">
+            <div class="glass-card testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"Transformed our startup with lightning-fast development. Perfect for Whitefield's hustle!"</p>
+                <strong>- Ravi K., IT Director</strong>
+            </div>
+            <div class="glass-card testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"Outstanding cloud migration. Professional team, premium results every time."</p>
+                <strong>- Priya S., Founder</strong>
+            </div>
+            <div class="glass-card testimonial">
+                <div class="stars">★★★★☆</div>
+                <p>"UI designs that rival Apple. Highly recommend for tech pros in the area."</p>
+                <strong>- Arjun M., CEO</strong>
+            </div>
+            <div class="glass-card testimonial">
+                <div class="stars">★★★★★</div>
+                <p>"Seamless DevOps setup boosted our productivity. Elite service!"</p>
+                <strong>- Neha P., CTO</strong>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact Us</h2>
+        <div class="glass-card" style="max-width: 1000px; margin: 0 auto;">
+            <div class="contact-info">
+                <div>
+                    <h3>Visit Us</h3>
+                    <p>SH 35, Whitefield Main Road<br>Giddens Layout, Whitefield<br>Bengaluru, Karnataka 560066</p>
+                </div>
+                <div>
+                    <h3>Call Us</h3>
+                    <p>+91 98765 43210</p>
+                </div>
+                <div>
+                    <h3>Hours</h3>
+                    <p>Mon-Fri: 9AM - 7PM<br>Sat: 10AM - 5PM<br>Sun: Closed</p>
+                </div>
+            </div>
+            <iframe id="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.111748220566!2d77.75092961479999!3d12.96901269086755!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae17b1d3e2b3b7%3A0x4b4b4b4b4b4b4b4b!2sWhitefield%2C%20Bengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1690000000000" allowfullscreen="" loading="lazy"></iframe>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Whitefield Tech Hub. All rights reserved. | Serving Bangalore's IT Elite.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            document.querySelector('nav').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.classList.toggle('active');
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = document.querySelector(anchor.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth' });
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Glowing effects on hover
+        document.querySelectorAll('.glass-card, .btn').forEach(el => {
+            el.addEventListener('mouseenter', () => el.classList.add('glow'));
+            el.addEventListener('mouseleave', () => el.classList.remove('glow'));
+        });
+    </script>
+</body>
+</html>
+```
+
+Citations:
+[1] How to Add your Business on Google Maps (2025) | Easy Guide https://www.youtube.com/watch?v=biKAZlTX5Yo
+[2] Whitefield 3D map in Google Earth http://www.maplandia.com/india/karnataka/bangalore-urban/whitefield/whitefield-google-earth.html
+[3] Find Your Google My Business Link, Google Maps Link or Google ... https://help.provesrc.com/en/articles/3485736-find-your-google-my-business-link-google-maps-link-or-google-place-id
+[4] Google Maps – Apps bei Google Play https://play.google.com/store/apps/details/Google+Maps?id=com.google.android.apps.maps&hl=gsw
+[5] Whitefield, Bangalore https://www.findlatitudeandlongitude.com/l/whitefield,+bangalore/464440/
+[6] Manage your business address https://support.google.com/business/answer/2853879?hl=en
+[7] Services Solutions: Review and Engagement - Google Maps https://maps.google.com/intl/en_ie/business/services/
+[8] Whitefield Map | India Google Satellite Maps http://www.maplandia.com/india/karnataka/bangalore-urban/whitefield/
+[9] How to find your Google Business Profile URL https://www.youtube.com/watch?v=kZo_fXsvk7g
+[10] Google Maps https://maps.google.com
+[11] Whitefield, Bangalore Urban, Karnataka, India: Maps http://www.maphill.com/india/karnataka/bangalore-urban/whitefield/
+[12] Whitefield Main Road - Bengaluru https://dwello.in/locations/whitefield-main-road-whitefield-bengaluru-overview
+[13] Google Mapas – Your Business on Google Maps https://googlemapas.com
+[14] Whitefield Main Road, Bangalore - Map, Pin Code, & ... https://www.nobroker.in/locality-iq/whitefield-main-road-bangalore-liqlt
+[15] Things to Do in Whitefield – A Local's Guide to Eating, ... https://oliveliving.com/blog/things-to-do-in-whitefield-a-locals-guide-to-eating-shopping-exploring/
+[16] maps.app.goo.gl Reviews: Is this site a scam or legit? https://www.scam-detector.com/validator/maps-app-goo-gl-review/
+[17] Whitefield, Bengaluru - Wikipedia https://en.wikipedia.org/wiki/Whitefield,_Bengaluru
+[18] Whitefield Map - Suburb - Bangalore (East), Karnataka, India https://mapcarta.com/14851396
+[19] Google Maps - App Store https://apps.apple.com/us/app/google-maps/id585027354
+[20] Whitefield, Bengaluru - Map, Pin Code, Locations ... - Dwello https://dwello.in/locations/whitefield-bengaluru-overview
